@@ -19,40 +19,26 @@ public class Articulo {
 	}
 
 	public boolean pujar(Usuario u, double puja) {
-		
-		
+
 		if (this.checkTiempo()) {
 			this.termina();
 			return false;
 		}
-		
-		
-
-//		if (!this.usuarios.contains(u)) {
-//			this.usuarios.add(u);
-//		}
-//
-//		if (puja >= Collections.max(this.pujas)) {
-//			this.pujas.add(puja);
-//			return true;
-//		}else {
-//			return false;
-//		}
 		return false;
-
 	}
-	
+
 	/*
-	 * Returns true if 
+	 * Returns true if the bid is in the time frame
 	 */
 	private boolean checkTiempo() {
 		double c = Calendar.getInstance().getTimeInMillis();
-		if (c<this.horaInicio.getTimeInMillis()||c>=this.horaFinal.getTimeInMillis()) {
+		if (c < this.horaInicio.getTimeInMillis() || c >= this.horaFinal.getTimeInMillis()) {
 			return false;
-		}else {
+		} else {
 			return true;
 		}
 	}
+
 	public void termina() {
 		
 	}
