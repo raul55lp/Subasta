@@ -18,29 +18,48 @@ public class Articulo {
 
 	}
 
-	public boolean pujar(Usuario u, double puja) {
-
-		if (this.checkTiempo()) {
-			this.termina();
-			return false;
-		}
-		return false;
+	public double getPujaFinal() {
+		return pujaFinal;
 	}
 
-	/*
-	 * Returns true if the bid is in the time frame
-	 */
-	private boolean checkTiempo() {
-		double c = Calendar.getInstance().getTimeInMillis();
-		if (c < this.horaInicio.getTimeInMillis() || c >= this.horaFinal.getTimeInMillis()) {
-			return false;
-		} else {
-			return true;
-		}
+	public void setPujaFinal(double pujaFinal) {
+		this.pujaFinal = pujaFinal;
 	}
 
-	public void termina() {
-		
+	public ArrayList<Puja> getPujas() {
+		return pujas;
+	}
+
+	public void setPujas(ArrayList<Puja> pujas) {
+		this.pujas = pujas;
+	}
+
+	public Usuario getGanador() {
+		return ganador;
+	}
+
+	public void setGanador(Usuario ganador) {
+		this.ganador = ganador;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public double getPrecioMinimo() {
+		return precioMinimo;
+	}
+
+	public Calendar getHoraInicio() {
+		return horaInicio;
+	}
+
+	public Calendar getHoraFinal() {
+		return horaFinal;
+	}
+
+	public String getImagen() {
+		return imagen;
 	}
 
 }
