@@ -43,4 +43,16 @@ public class Usuario {
 	public Usuario(String correo, int tarjeta) {
 		
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Usuario u = (Usuario)obj;
+		if (u.getCorreo().equals(this.correo)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	
 }

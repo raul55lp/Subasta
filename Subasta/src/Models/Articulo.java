@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Collections;
 
 public class Articulo {
+
 	private int id;
 	private double precioMinimo;
 	private Calendar horaInicio;
@@ -13,9 +14,17 @@ public class Articulo {
 	private ArrayList<Puja> pujas;
 	private String imagen;
 	private Usuario ganador;
+	private static int ID = 1;
 
+	public Articulo(double precioMinimo, Calendar horaInicio, Calendar horaFinal, String imagen) {
+		this.id = Articulo.ID++;
+		this.precioMinimo = precioMinimo;
+		this.horaInicio = horaInicio;
+		this.horaFinal = horaFinal;
+		this.imagen = imagen;
+	}
 	public Articulo() {
-
+		
 	}
 
 	public double getPujaFinal() {
