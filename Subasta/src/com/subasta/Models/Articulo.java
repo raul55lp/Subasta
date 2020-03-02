@@ -1,4 +1,4 @@
-package Models;
+package com.subasta.Models;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -6,15 +6,15 @@ import java.util.Collections;
 
 public class Articulo {
 
-	private int id;
-	private double precioMinimo;
+	private Integer id;
+	private Double precioMinimo;
 	private Calendar horaInicio;
 	private Calendar horaFinal;
-	private double pujaFinal;
+	private Double pujaFinal;
 	private ArrayList<Puja> pujas;
 	private String imagen;
 	private Usuario ganador;
-	private static int ID = 1;
+	private static Integer ID = 1;
 
 	public Articulo(double precioMinimo, Calendar horaInicio, Calendar horaFinal, String imagen) {
 		this.id = Articulo.ID++;

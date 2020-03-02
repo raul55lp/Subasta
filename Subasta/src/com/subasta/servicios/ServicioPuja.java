@@ -1,12 +1,12 @@
-package servicios;
+package com.subasta.servicios;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import Models.Articulo;
-import Models.Puja;
-import Models.Usuario;
+import com.subasta.Models.Articulo;
+import com.subasta.Models.Puja;
+import com.subasta.Models.Usuario;
 
 public class ServicioPuja {
 	private static List<Puja> lista = new ArrayList<>();
@@ -18,7 +18,8 @@ public class ServicioPuja {
 			return false;
 		}
 
-		Puja p = new Puja(usuario, articulo, precio);
+//		Puja p = new Puja(usuario, articulo, precio);
+		Puja p = new Puja(usuario,  precio);
 
 		lista.add(p);
 		articulo.getPujas().add(p);

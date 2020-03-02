@@ -1,8 +1,8 @@
-package Models;
+package com.subasta.Models;
 
 public class Puja {
 	private Usuario usuario;
-	private Articulo articulo;
+//	private Articulo articulo;
 	private float precio;
 	
 	public Puja() {
@@ -10,9 +10,10 @@ public class Puja {
 	}
 	
 
-	public Puja(Usuario usuario, Articulo articulo, float precio) {
+//	public Puja(Usuario usuario, Articulo articulo, float precio) {
+	public Puja(Usuario usuario, float precio) {
 		this.usuario = usuario;
-		this.articulo = articulo;
+//		this.articulo = articulo;
 		this.precio = precio;
 	}
 
@@ -25,13 +26,13 @@ public class Puja {
 		this.usuario = usuario;
 	}
 
-	public Articulo getArticulo() {
-		return articulo;
-	}
-
-	public void setArticulo(Articulo articulo) {
-		this.articulo = articulo;
-	}
+//	public Articulo getArticulo() {
+//		return articulo;
+//	}
+//
+//	public void setArticulo(Articulo articulo) {
+//		this.articulo = articulo;
+//	}
 
 	public float getPrecio() {
 		return precio;

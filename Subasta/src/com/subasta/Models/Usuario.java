@@ -1,4 +1,4 @@
-package Models;
+package com.subasta.Models;
 
 import java.util.List;
 
