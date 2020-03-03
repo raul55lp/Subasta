@@ -41,10 +41,13 @@
 </head>
 
 <body>
+
+	<nav class="navbar navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Navbar</a>
+	</nav>
 	<div class="row h-100">
 	<div class="col-md-8 offset-md-2">
 		<h1>Lista de artículos activos</h1>
-			<div class="card card-block w-25">Artículo</div>
 			<%
 				Calendar hora = Calendar.getInstance();
 				ServicioArticulo sa = new ServicioArticulo();
@@ -62,7 +65,7 @@
 		</div>
 		<div class="col-md-8 offset-md-2">
 		<h1>Lista de artículos</h1>
-			<div class="card card-block w-25">Artículo</div>
+			
 			<%
 				lista = sa.Articulos();
 				for (Articulo a : lista) {

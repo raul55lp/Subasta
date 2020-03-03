@@ -1,6 +1,11 @@
 package com.subasta.Models;
 
 public class Puja {
+	@Override
+	public String toString() {
+		return "Puja {usuario:" + usuario + ", precio:" + precio + "}";
+	}
+
 	private Usuario usuario;
 //	private Articulo articulo;
 	private float precio;

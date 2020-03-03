@@ -12,12 +12,13 @@ import com.subasta.Models.Articulo;
 import com.subasta.servicios.ServicioArticulo;
 
 
+
 @Path(value = "/articulos/{nombre:.*}")
 public class getArticuloActivo {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public String listaArticulos(@PathParam("nombre")String nombre){
 		ServicioArticulo sc = new ServicioArticulo();
-		return sc.Articulos().toString();
+		return sc.Articulos().toString().substring(1,sc.Articulos().toString().length());
 	}
 }

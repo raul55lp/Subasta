@@ -6,6 +6,13 @@ import java.util.Collections;
 
 public class Articulo {
 
+	@Override
+	public String toString() {
+		return "{id:" + id + ", precioMinimo:" + precioMinimo + ", horaInicio:"+ horaInicio.getTimeInMillis()+ ", horaFinal:"
+				+ horaFinal.getTimeInMillis() + ", pujaFinal:" + pujaFinal + ", pujas:" + pujas + ", imagen:" + imagen + ", ganador:"
+				+ ganador + "}";
+	}
+
 	private Integer id;
 	private Double precioMinimo;
 	private Calendar horaInicio;

@@ -3,6 +3,12 @@ package com.subasta.Models;
 import java.util.List;
 
 public class Usuario {
+	@Override
+	public String toString() {
+		return "Usuario {correo:" + correo + ", tarjeta:" + tarjeta + ", pujas:" + pujas + ", articulos:" + articulos
+				+ "}";
+	}
+
 	private String correo;
 	private int tarjeta;
 	private List<Puja> pujas;
