@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		var dias = 0;
+		var horas = 0;
+		var minutos = 10;
+		var segundos = 1;
+		$(document).ready(function () {
+			$.get("rest/articulos/", function (data) {
+				x('timer',data.horaFinal)
+			});
+
+		});
+		var x = function(){return setInterval(function (id, time) {
+			var now = new Date().getTime();
+			var c = new Date(time.year,time.month,time.hours,time.minutes,time.seconds,time.milliseconds)
+			// Find the distance between now and the count down date
+			var distance = c - now;
+			// Time calculations for days, hours, minutes and seconds
+			var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+			var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+			var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+			// Display the result in the element with id="demo"
+			document.getElementById(id).innerHTML = days + "d " + hours + "h "
+				+ minutes + "m " + seconds + "s ";
+
+			// If the count down is finished, write some text
+			if (distance < 0) {
+				clearInterval(x);
+				document.getElementById("demo").innerHTML = "EXPIRED";
+			}
+		}, 1000)}
+	</script>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Navbar</a>
+	</nav>
+	<div class="row h-100">
+		<div class="col-md-8 offset-md-2">
+			<h1>Lista de artículos activos</h1>
+			<h1 id="timer"></h1>
+
+		</div>
+		<div class="col-md-8 offset-md-2">
+			<h1>Lista de artículos</h1>
+
+
+		</div>
+	</div>
+</body>
+
+</html>
