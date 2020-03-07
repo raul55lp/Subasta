@@ -11,14 +11,13 @@ import com.subasta.Models.Usuario;
 public class ServicioPuja {
 	private static List<Puja> lista = new ArrayList<>();
 
-	public boolean Pujar(Articulo articulo, Usuario usuario, float precio) {
+	public boolean Pujar(Articulo articulo, Usuario usuario, Double precio) {
 		Calendar c = Calendar.getInstance();
 		// <0 si el parámetro es menor
 		if (articulo.getHoraInicio().compareTo(c) < 0 || articulo.getHoraFinal().compareTo(c) >= 0) {
 			return false;
 		}
 
-//		Puja p = new Puja(usuario, articulo, precio);
 		Puja p = new Puja(usuario,  precio);
 
 		lista.add(p);

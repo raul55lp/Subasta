@@ -5,9 +5,17 @@ import java.util.List;
 public class Usuario {
 
 	private String correo;
-	private int tarjeta;
+	private Integer tarjeta;
 	private List<Puja> pujas;
 	private List<Articulo> articulos;
+	
+
+
+	public Usuario(String correo, Integer tarjeta) {
+		super();
+		this.correo = correo;
+		this.tarjeta = tarjeta;
+	}
 
 	public String getCorreo() {
 		return correo;
@@ -17,11 +25,11 @@ public class Usuario {
 		this.correo = correo;
 	}
 
-	public int getTarjeta() {
+	public Integer getTarjeta() {
 		return tarjeta;
 	}
 
-	public void setTarjeta(int tarjeta) {
+	public void setTarjeta(Integer tarjeta) {
 		this.tarjeta = tarjeta;
 	}
 
@@ -41,14 +49,14 @@ public class Usuario {
 		this.articulos = articulos;
 	}
 
-	public Usuario(String correo, int tarjeta) {
+	public Usuario(String correo, Integer tarjeta) {
 		
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		Usuario u = (Usuario)obj;
-		if (u.getCorreo().equals(this.correo)) {
+		if (u.getCorreo().equals(this.correo) || u.getTarjeta().equals(this.tarjeta)) {
 			return true;
 		}else {
 			return false;

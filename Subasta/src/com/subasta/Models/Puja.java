@@ -3,18 +3,15 @@ package com.subasta.Models;
 public class Puja {
 
 	private Usuario usuario;
-//	private Articulo articulo;
-	private float precio;
+	private Double precio;
 	
 	public Puja() {
 		
 	}
 	
 
-//	public Puja(Usuario usuario, Articulo articulo, float precio) {
-	public Puja(Usuario usuario, float precio) {
+	public Puja(Usuario usuario, Double precio) {
 		this.usuario = usuario;
-//		this.articulo = articulo;
 		this.precio = precio;
 	}
 
@@ -27,19 +24,11 @@ public class Puja {
 		this.usuario = usuario;
 	}
 
-//	public Articulo getArticulo() {
-//		return articulo;
-//	}
-//
-//	public void setArticulo(Articulo articulo) {
-//		this.articulo = articulo;
-//	}
-
-	public float getPrecio() {
+	public Double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(float precio) {
+	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
 }
