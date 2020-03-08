@@ -14,13 +14,13 @@ import com.subasta.servicios.ServicioArticulo;
 
 
 
-@Path(value = "/articulo/{id}")
+@Path(value = "/articulosSlider/")
 public class getArticulosSlider {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String listaArticulos(@PathParam("id") Integer id){
+	public String listaArticulos(){
 		ServicioArticulo sc = new ServicioArticulo();
-		String json = new Gson().toJson(sc.buscaArticuloPorId(id));
+		String json = new Gson().toJson(sc.ArticulosSlider());
 		return json;
 	}
 }

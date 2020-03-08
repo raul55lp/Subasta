@@ -31,16 +31,22 @@ public class ServicioArticulo {
 		for (int i = 0; i < 15; i++) {
 			Calendar c = Calendar.getInstance();
 			Calendar c1 = Calendar.getInstance();
-			c1.add(Calendar.MINUTE, 5);
+			c1.add(Calendar.MINUTE, 55);
 			lista.add(new Articulo(10, c, c1, imagenes[i]));
 			c.add(Calendar.MINUTE, i*1);
 			c1.add(Calendar.MINUTE, i*2);
 		}
-		Usuario u = new Usuario("asdfasdf",32451);
-		for (int i = 0; i < 10; i++) {
-			Puja p = new Puja();
-			
+		Usuario u = new Usuario("email",32451);
+		ArrayList<Puja> pujas = new ArrayList<Puja>();
+		ServicioUsuario su = new ServicioUsuario();
+		ServicioPuja sp = new ServicioPuja(); 
+		su.meteUsuario(u);
+		for (int i = 1; i < 10; i++) {
+			Puja p = new Puja(u,10.1d*i);
+			pujas.add(0,p);
+			sp.metePuja(u,p.getPrecio());
 		}
+		lista.get(0).setPujas(pujas);
 	}
 
 	public Articulo buscaArticuloPorId(Integer id) {
@@ -63,9 +69,29 @@ public class ServicioArticulo {
 	}
 	public List<Articulo> Articulos(){
 		List<Articulo> articulos =new ArrayList<Articulo>();
-		long c = Calendar.getInstance().getTimeInMillis();
 		for (Articulo articulo : lista) {
 				articulos.add(articulo);
+		}
+		return articulos;
+	}
+	public List<Articulo> ArticulosByEmail(String email){
+		List<Articulo> articulos =new ArrayList<Articulo>();
+		for (Articulo articulo : lista) {
+			for (Puja puja : articulo.getPujas()) {
+				if (puja.getUsuario().getCorreo().equals(email)) {
+					articulos.add(articulo);
+					break;
+				}
+			}
+		}
+		return articulos;
+	}
+	public List<Articulo>ArticulosGanados(String email){
+		List<Articulo> articulos =new ArrayList<Articulo>();
+		for (Articulo articulo : lista) {
+			if (articulo.getGanador()!=null &&articulo.getGanador().getCorreo().equals(email)) {
+				articulos.add(articulo);
+			}
 		}
 		return articulos;
 	}

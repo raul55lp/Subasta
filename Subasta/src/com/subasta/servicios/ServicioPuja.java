@@ -9,7 +9,7 @@ import com.subasta.Models.Puja;
 import com.subasta.Models.Usuario;
 
 public class ServicioPuja {
-	private static List<Puja> lista = new ArrayList<>();
+	private static ArrayList<Puja> lista = new ArrayList<>();
 
 	public boolean Pujar(Articulo articulo, Usuario usuario, Double precio) {
 		Calendar c = Calendar.getInstance();
@@ -22,8 +22,21 @@ public class ServicioPuja {
 
 		lista.add(p);
 		articulo.getPujas().add(p);
-		usuario.getPujas().add(p);
 
 		return true;
+	}
+	
+	public ArrayList<Puja> PujasByEmail(String mail){
+		ArrayList<Puja> pujas = new ArrayList<Puja>();
+		for (Puja puja : lista) {
+			if (puja.getUsuario().getCorreo().equals(mail)) {
+				pujas.add(puja);
+			}
+		}
+		return pujas;
+	}
+	public boolean metePuja(Usuario usuario, Double precio) {
+		Puja p = new Puja(usuario,  precio);
+		return lista.add(p);
 	}
 }

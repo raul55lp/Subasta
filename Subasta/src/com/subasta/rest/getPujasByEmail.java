@@ -11,16 +11,17 @@ import javax.ws.rs.core.MediaType;
 import com.google.gson.Gson;
 import com.subasta.Models.Articulo;
 import com.subasta.servicios.ServicioArticulo;
+import com.subasta.servicios.ServicioPuja;
 
 
 
-@Path(value = "/articulo/{id}")
-public class getArticuloById {
+@Path(value = "/pujas/{id}")
+public class getPujasByEmail {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String listaArticulos(@PathParam("id") Integer id){
-		ServicioArticulo sc = new ServicioArticulo();
-		String json = new Gson().toJson(sc.buscaArticuloPorId(id));
+	public String listaArticulos(@PathParam("id") String id){
+		ServicioPuja sc = new ServicioPuja();
+		String json = new Gson().toJson(sc.PujasByEmail(id));
 		return json;
 	}
 }
