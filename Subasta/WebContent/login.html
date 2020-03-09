@@ -50,7 +50,9 @@
             }
         }
         function registrar() {
-            $.post('rest/UsuarioCheck/', function (data) {
+            const email = document.getElementById('email').value;
+            const tarjeta = document.getElementById('tarjeta').value;
+            $.post('rest/UsuarioCheck/', { email: email, tarjeta: tarjeta }, function (data) {
                 const e = document.getElementById('resultado');
                 if (data) {
                     e.innerHTML = 'Este usuario ya existe'
@@ -65,7 +67,6 @@
 </head>
 
 <body class="container-fluid">
-
     <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Navbar</a>
     </nav>

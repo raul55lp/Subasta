@@ -27,7 +27,8 @@
 			activos();
 			articulos();
 		});
-		function activos(){$.get("rest/articulosActivos/", function (data) {
+		function activos() {
+			$.get("rest/articulosActivos/", function (data) {
 				console.log(data);
 				data.map((d) => {
 					document.getElementById('activas').innerHTML += `<div class="col-md-12 card" >
@@ -35,13 +36,15 @@
 				<div class="card-body">
 				<h5 class="card-title" name="timer`+ d.id + `"></h5>
 				<p class="card-text" name="precio`+ d.id + `">precios</p>
-    			<a href="articulo.jsp?id=`+d.id+`" name="boton`+ d.id + `">Pujar</a>
+    			<a href="articulo.jsp?id=`+ d.id + `" name="boton` + d.id + `">Pujar</a>
 				</div>
 				</div>`;
 					setInterval(() => { timer(d) }, 1000);
 				})
-			});}
-		function articulos(){$.get("rest/articulos/", function (data) {
+			});
+		}
+		function articulos() {
+			$.get("rest/articulos/", function (data) {
 				console.log(data);
 				data.map((d) => {
 					document.getElementById('subastas').innerHTML += `<div class="col-md-4 card" >
@@ -49,24 +52,25 @@
 				<div class="card-body">
 				<h5 class="card-title" name="timer`+ d.id + `"></h5>
 				<p class="card-text" name="precio`+ d.id + `">precios</p>
-    			<a href="articulo.jsp?id=`+d.id+`" name="boton`+ d.id + `">Pujar</a>
+    			<a href="articulo.jsp?id=`+ d.id + `" name="boton` + d.id + `">Pujar</a>
 				</div>
 				</div>`;
 					setInterval(() => { timer(d) }, 1000);
 				})
-			});}
-		function slider(){
+			});
+		}
+		function slider() {
 			$.get("rest/articulosSlider/", function (data) {
 				console.log(data);
 				let cont = 0;
-				data.map(d=>{
-					document.getElementById('barras').innerHTML+=`<li data-target="#carouselExampleIndicators" data-slide-to="`+cont+`" class="bg-dark"></li>`
-					document.getElementById('carousel').innerHTML+=`<div class="carousel-item">
+				data.map(d => {
+					document.getElementById('barras').innerHTML += `<li data-target="#carouselExampleIndicators" data-slide-to="` + cont + `" class="bg-dark"></li>`
+					document.getElementById('carousel').innerHTML += `<div class="carousel-item text-center">
 					<img class="d-block " src="`+ d.imagen + `" alt="First slide">
 				</div>`
-				cont+=1;
+					cont += 1;
 				})
-				document.getElementsByClassName('carousel-item ')[0].className='carousel-item active';
+				document.getElementsByClassName('carousel-item ')[0].className = 'carousel-item text-center active';
 			});
 		}
 		function tiempo(d) {
@@ -74,10 +78,10 @@
 			let hours = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 			let minutes = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
 			const seconds = Math.floor((d % (1000 * 60)) / 1000);
-			days = days==0? '':days+'d';
-			hours = hours==0? '':hours+'h';
-			minutes = minutes==0? '':minutes+'m';
-			const text = days+ " " +hours + " " + minutes + " " + seconds + "s ";
+			days = days == 0 ? '' : days + 'd';
+			hours = hours == 0 ? '' : hours + 'h';
+			minutes = minutes == 0 ? '' : minutes + 'm';
+			const text = days + " " + hours + " " + minutes + " " + seconds + "s ";
 			return text;
 		}
 		function timer(d) {
@@ -85,21 +89,21 @@
 			const inicio = new Date(d.horaInicio.year, d.horaInicio.month, d.horaInicio.dayOfMonth, d.horaInicio.hourOfDay, d.horaInicio.minute, d.horaInicio.second)
 			const now = new Date().getTime();
 			const distance = final - now;
-			
+
 			if (inicio > now) { // aún no ha empezado
-				contadores(d.id,{clase:'text-dark',text:'Empieza en '+tiempo(inicio-now)})
+				contadores(d.id, { clase: 'text-dark', text: 'Empieza en ' + tiempo(inicio - now) })
 				botones(d.id, { disabled: true, clase: 'btn btn-secondary' });
 			}
 			else if (distance > 0) { //Está en curso
 				botones(d.id, { disabled: false, clase: 'btn btn-success' });
-				contadores(d.id,{clase:'text-dark',text:tiempo(distance)})
+				contadores(d.id, { clase: 'text-dark', text: tiempo(distance) })
 			}
 			else { // ha acabado
-				contadores(d.id,{clase:'text-danger',text:'No disponible'})
+				contadores(d.id, { clase: 'text-danger', text: 'No disponible' })
 				botones(d.id, { disabled: true, clase: 'btn btn-danger' });
 			}
 		}
-		function contadores(id,attr){
+		function contadores(id, attr) {
 			document.getElementsByName('timer' + id).forEach(e => {
 				e.innerHTML = attr.text;
 				e.className = attr.clase;
@@ -116,16 +120,20 @@
 
 <body class="container-fluid">
 
+
 	<nav class="navbar navbar-dark bg-dark">
 		<a class="navbar-brand" href="#">Navbar</a>
 	</nav>
 
-	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-		<h1>Próximas subastas</h1>
-		<ol class="carousel-indicators" id="barras">
-		</ol>
-		<div class="container">
-			<div class="carousel-inner row" id="carousel">
+	<div class="container">
+
+		<div id="carouselExampleIndicators" class="d-sm-none d-none d-md-block shadow rounded border-dark col-12 mt-3 carousel slide pb-3" data-ride="carousel">
+			<h1>Próximas subastas</h1>
+			<ol class="carousel-indicators" id="barras">
+			</ol>
+			<div class="container">
+				<div class="carousel-inner row" id="carousel">
+				</div>
 			</div>
 		</div>
 	</div>

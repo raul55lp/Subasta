@@ -10,6 +10,8 @@ public class ServicioUsuario {
 	private static List<Usuario> lista = new ArrayList<>();
 	
 	public boolean checkUsuario(String correo,Integer tarjeta) {
+		System.out.println("hola "+correo);
+		System.out.println(tarjeta);
 		Usuario u = new Usuario(correo,tarjeta);
 		for (Usuario usuario : lista) {
 			if (usuario.equals(u)) {
