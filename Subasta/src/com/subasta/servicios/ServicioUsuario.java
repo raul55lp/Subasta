@@ -3,6 +3,9 @@ package com.subasta.servicios;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
+
 import com.subasta.Models.Puja;
 import com.subasta.Models.Usuario;
 
@@ -10,8 +13,6 @@ public class ServicioUsuario {
 	private static List<Usuario> lista = new ArrayList<>();
 	
 	public boolean checkUsuario(String correo,Integer tarjeta) {
-		System.out.println("hola "+correo);
-		System.out.println(tarjeta);
 		Usuario u = new Usuario(correo,tarjeta);
 		for (Usuario usuario : lista) {
 			if (usuario.equals(u)) {
