@@ -21,6 +21,10 @@ public class getUsuarioCheck {
 	public String listaUsuario(@Context ServletContext context,@FormParam("email") String email,@FormParam("tarjeta") Integer tarjeta){
 		ServicioUsuario sc = new ServicioUsuario();
 		String json = new Gson().toJson(sc.checkUsuario(email, tarjeta));
+		if (!Boolean.parseBoolean(json)) {
+			RequestDispatcher d = context.getRequestDispatcher("/Sesion");
+//			d.include(email, null);
+		}
 		// si lo check devuelve que hay, salimos, si no hay que llamar el servlet Sesion la creamos y dentro hay que meter el usuario, osea, que antes no debería poder meterse 
 //		RequestDispatcher dispatcher = context.getServletContext().getRequestDispatcher("/servlet/ShowSupplies");
 //		dispatcher.include(request, response);

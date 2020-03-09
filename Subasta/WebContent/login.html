@@ -52,10 +52,14 @@
         function registrar() {
             const email = document.getElementById('email').value;
             const tarjeta = document.getElementById('tarjeta').value;
-            $.post('rest/UsuarioCheck/', { email: email, tarjeta: tarjeta }, function (data) {
+            $.post('Sesion', { email: email, tarjeta: tarjeta }, function (data) {
                 const e = document.getElementById('resultado');
                 if (data) {
+                    if(data!=true){
+                        e.innerHTML=data;
+                    }else{
                     e.innerHTML = 'Este usuario ya existe'
+                    }
                     e.className = 'text-danger'
                 } else {
                     e.innerHTML = 'Usuario creado correctamente'
@@ -70,9 +74,9 @@
     <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Navbar</a>
     </nav>
-    <form action="javascript:registrar()" method="post" class="my-5  col-md-4 offset-4">
+    <form action="javascript:registrar()" method="post" class=" p-5 my-5 col-md-4 offset-4 shadow rounded border-dark">
         <h5>Registro de nuevo usuario</h5>
-        <div class="form-group">
+        <div class="form-group my-5">
             <label for="email">Email:</label>
             <input type="email" name="" id="email" class="form-control">
             <div class="invalid-feedback">

@@ -24,13 +24,6 @@ public class Context extends HttpServlet {
 			throws ServletException, IOException {
 		
 		ServletContext context = getServletContext();
-		ArrayList<Articulo> articulos = new ArrayList<Articulo>();
-		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-		ArrayList<Puja> pujas = new ArrayList<Puja>();
-
-		context.setAttribute("articulos", articulos);
-		context.setAttribute("usuarios", usuarios);
-		context.setAttribute("pujas", pujas);
 
 	}
 

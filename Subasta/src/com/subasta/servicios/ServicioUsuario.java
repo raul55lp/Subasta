@@ -19,7 +19,6 @@ public class ServicioUsuario {
 				return true;
 			}
 		}
-		lista.add(u);
 		return false;
 	}
 	public Usuario getUsuario(String email) {

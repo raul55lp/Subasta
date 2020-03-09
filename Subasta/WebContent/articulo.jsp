@@ -1,5 +1,5 @@
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%> -->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
@@ -18,9 +18,9 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="WebSocketClient.js"></script>
     <script>
-        // const id = '<%= request.getParameter("id") %>'
-        const id = 1;
+        const id = '<%= request.getParameter("id") %>'
         var articulo;
         $(document).ready(function () {
             articulo();
@@ -33,16 +33,21 @@
                     $('#precio').addClass('is-invalid')
                 }
             });
+            onConnectClick();
         });
         function articulo() {
             $.get("rest/articulo/" + id, function (data) {
                 articulo = data;
                 document.getElementById('imagen').src = data.imagen;
-                data.pujas.map(p => {
-                    document.getElementById('pujas').innerHTML += `<li class="list-group-item">` + p.precio + `€</li>`
-                });
+                if (data.pujas) {
+                    data.pujas.map(p => {
+                        document.getElementById('pujas').innerHTML += `<li class="list-group-item">` + p.precio + `€</li>`
+                    });
+                    $('#precio').prop('min', (data.pujas[0].precio+'').replace('.',','));
+                }else{
+                    $('#precio').prop('min', (data.precioMinimo+'').replace('.',','));
+                }
                 setInterval(() => { timer(data) }, 1000);
-                $('#precio').prop('min', (data.pujas[0].precio+'').replace('.',','));
             })
         }
         function tiempo(d) {
@@ -114,7 +119,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="submit" value="Pujar" class="btn btn-success" id="pujar" disabled>
+                                    <input type="submit" value="Pujar" class="btn btn-success" id="pujar" disabled onclick="onSendClick()">
                                 </div>
                             </div>
                         </form>

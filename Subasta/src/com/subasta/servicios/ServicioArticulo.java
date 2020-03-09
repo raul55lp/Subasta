@@ -36,17 +36,6 @@ public class ServicioArticulo {
 			c.add(Calendar.MINUTE, i*1);
 			c1.add(Calendar.MINUTE, i*2);
 		}
-		Usuario u = new Usuario("email",32451);
-		ArrayList<Puja> pujas = new ArrayList<Puja>();
-		ServicioUsuario su = new ServicioUsuario();
-		ServicioPuja sp = new ServicioPuja(); 
-		su.meteUsuario(u);
-		for (int i = 1; i < 10; i++) {
-			Puja p = new Puja(u,10.1d*i);
-			pujas.add(0,p);
-			sp.metePuja(u,p.getPrecio());
-		}
-		lista.get(0).setPujas(pujas);
 	}
 
 	public Articulo buscaArticuloPorId(Integer id) {
