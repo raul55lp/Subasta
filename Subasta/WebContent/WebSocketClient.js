@@ -8,12 +8,10 @@ var ws_endpoint = null;
  */
 function onConnectClick() {
     var ws_protocol = 'ws';
-    var ws_hostname = '127.0.01';
+    var ws_hostname = 'localhost';
     var ws_port     = '8080';
-    var ws_endpoint = '/webSocketPujas'
+    var ws_endpoint = '/Subasta/webSocketPujas'
     openWSConnection(ws_protocol, ws_hostname, ws_port, ws_endpoint);
-    console.log('done');
-    
 }
 /**
  * Event handler for clicking on button "Disconnect"

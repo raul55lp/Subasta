@@ -29,8 +29,6 @@ public class getUsuarioCheck {
 //		RequestDispatcher dispatcher = context.getServletContext().getRequestDispatcher("/servlet/ShowSupplies");
 //		dispatcher.include(request, response);
 //		
-		
-		
 		return json;
 	}
 }
