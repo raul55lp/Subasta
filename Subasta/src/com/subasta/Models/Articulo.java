@@ -11,7 +11,7 @@ public class Articulo {
 	private Calendar horaInicio;
 	private Calendar horaFinal;
 	private Double pujaFinal;
-	private ArrayList<Puja> pujas;
+	private ArrayList<Puja> pujas = new ArrayList<Puja>();
 	private String imagen;
 	private Usuario ganador;
 	private static Integer ID = 1;
@@ -69,6 +69,11 @@ public class Articulo {
 
 	public String getImagen() {
 		return imagen;
+	}
+	
+	public boolean metePuja(Puja p) {
+		pujas.add(0,p);
+		return true;
 	}
 
 }

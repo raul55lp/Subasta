@@ -10,7 +10,7 @@ import com.subasta.Models.Puja;
 import com.subasta.Models.Usuario;
 
 public class ServicioUsuario {
-	private static List<Usuario> lista = new ArrayList<>();
+	private static List<Usuario> lista = new ArrayList<Usuario>();
 	
 	public boolean checkUsuario(String correo,Integer tarjeta) {
 		Usuario u = new Usuario(correo,tarjeta);

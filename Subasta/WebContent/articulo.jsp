@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="javax.servlet.http.HttpSession" %>
+<%@ page import="com.subasta.Models.Usuario" %>
 <!DOCTYPE html>
 <html>
 
@@ -20,32 +22,47 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="WebSocketClient.js"></script>
     <script>
-        const id = '<%= request.getParameter("id") %>'
+        <%
+            HttpSession session_ = request.getSession(true);
+        String correo = "";
+        if (null != session.getAttribute("usuario")) {
+            Usuario u = (Usuario)session_.getAttribute("usuario");
+            correo = u.getCorreo();
+        }
+        
+        %>
+        const id_ = '<%= request.getParameter("id") %>'
+        const usuario = '<%= correo %>'
         var articulo;
         $(document).ready(function () {
+
             articulo();
-            $('#precio').on('keyup',function () {
-                if ($('#precio').val() > articulo.pujas[0].precio) {
+            $('#precio').on('keyup change', function () {
+                if (parseFloat($('#precio').val().replace(',', '.')) > parseFloat($('#precio').attr('min').replace(',', '.'))) {
                     $('#precio').removeClass('is-invalid')
                     $('#pujar').removeAttr('disabled')
                 } else {
-                    $('#pujar').attr('disabled','')
+                    $('#pujar').attr('disabled', 'disabled')
                     $('#precio').addClass('is-invalid')
                 }
             });
             onConnectClick();
         });
         function articulo() {
-            $.get("rest/articulo/" + id, function (data) {
+            $.get("rest/articulo/" + id_, function (data) {
                 articulo = data;
                 document.getElementById('imagen').src = data.imagen;
-                if (data.pujas) {
+                if (data.pujas.length>0) {
+                    console.log('entro');
                     data.pujas.map(p => {
+                        console.log(1);
                         document.getElementById('pujas').innerHTML += `<li class="list-group-item">` + p.precio + `€</li>`
                     });
-                    $('#precio').prop('min', (data.pujas[0].precio+'').replace('.',','));
-                }else{
-                    $('#precio').prop('min', (data.precioMinimo+'').replace('.',','));
+                    $('#precio').prop('min', (data.pujas[0].precio + '').replace('.', ','));
+                    $('#precioMin').html(data.pujas[0].precio);
+                } else {
+                    $('#precio').prop('min', (data.precioMinimo + '').replace('.', ','));
+                    $('#precioMin').html(data.precioMinimo);
                 }
                 setInterval(() => { timer(data) }, 1000);
             })
@@ -69,15 +86,12 @@
 
             if (inicio > now) { // aún no ha empezado
                 contadores(d.id, { clase: 'text-secondary', text: 'Empieza en ' + tiempo(inicio - now) })
-                // botones(d.id, { disabled: true, clase: 'btn btn-secondary' });
             }
             else if (distance > 0) { //Está en curso
-                // botones(d.id, { disabled: false, clase: 'btn btn-success' });
                 contadores(d.id, { clase: 'text-success', text: tiempo(distance) })
             }
             else { // ha acabado
                 contadores(d.id, { clase: 'text-danger', text: 'No disponible' })
-                // botones(d.id, { disabled: true, clase: 'btn btn-danger' });
             }
         }
         function contadores(id, attr) {
@@ -92,13 +106,20 @@
                 e.className = attr.clase;
             })
         }
+        function actualizar(msg) {
+            $('#precio').val('');
+            $('#precio').prop('min', (msg + '').replace('.', ','));
+            $('#precioMin').html(msg);
+            document.getElementById('pujas').innerHTML = `<li class="list-group-item">` + msg + `</li>` + document.getElementById('pujas').innerHTML
+            $('#pujar').attr('disabled', '')
+        }
     </script>
 </head>
 
 <body class="container-fluid">
 
     <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="/Subasta/Index.html">Navbar</a>
     </nav>
     <div class="row m-5">
         <div class="col-md-8">
@@ -110,16 +131,18 @@
                     <div class="col-md-6">
                         <h5 name="timer"></h5>
                         <p>Para pujar tienes que estar registrado previamente</p>
-                        <form action="javascript:alert('trigered');" method="post" class="form">
+                        <form action="javascript:;" method="post" class="form">
                             <div class="row">
                                 <div class="col-md-8">
                                     <input type="number" name="precio" id="precio" class="form-control">
+                                    <h5>La puja mínima actual es: <span id="precioMin"></span></h5>
                                     <div class="invalid-feedback">
                                         La cantidad debe ser mayor que la última puja registrada
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="submit" value="Pujar" class="btn btn-success" id="pujar" disabled onclick="onSendClick()">
+                                    <input type="submit" value="Pujar" class="btn btn-success" id="pujar" disabled
+                                        onclick="onSendClick()">
                                 </div>
                             </div>
                         </form>

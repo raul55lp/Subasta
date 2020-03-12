@@ -9,20 +9,23 @@ import com.subasta.Models.Puja;
 import com.subasta.Models.Usuario;
 
 public class ServicioPuja {
-	private static ArrayList<Puja> lista = new ArrayList<>();
+	private static ArrayList<Puja> lista = new ArrayList<Puja>();
 
-	public boolean Pujar(Articulo articulo, Usuario usuario, Double precio) {
+	public boolean Pujar(Integer id, String mail, Double precio) {
 		Calendar c = Calendar.getInstance();
-		// <0 si el parámetro es menor
-		if (articulo.getHoraInicio().compareTo(c) < 0 || articulo.getHoraFinal().compareTo(c) >= 0) {
+		Articulo articulo = new ServicioArticulo().buscaArticuloPorId(id);
+		
+		System.out.println(c.getTimeInMillis());
+		System.out.println(articulo.getHoraInicio().getTimeInMillis());
+		System.out.println(articulo.getHoraFinal().getTimeInMillis());
+		
+		if (articulo.getHoraInicio().getTimeInMillis() > c.getTimeInMillis()||c.getTimeInMillis() >= articulo.getHoraFinal().getTimeInMillis()) {
 			return false;
 		}
-
-		Puja p = new Puja(usuario,  precio);
-
-		lista.add(p);
-		articulo.getPujas().add(p);
-
+		Usuario u =new ServicioUsuario().getUsuario(mail);
+		Puja p = new Puja(u,  precio);
+		ServicioPuja.lista.add(p);
+		articulo.metePuja(p);
 		return true;
 	}
 	

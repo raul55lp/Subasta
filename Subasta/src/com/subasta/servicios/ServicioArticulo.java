@@ -9,7 +9,7 @@ import com.subasta.Models.Puja;
 import com.subasta.Models.Usuario;
 
 public class ServicioArticulo {
-	private static List<Articulo> lista = new ArrayList<>();
+	private static List<Articulo> lista = new ArrayList<Articulo>();
 	private static String[] imagenes=new String[15];
 
 	static {
