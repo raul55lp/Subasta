@@ -31,19 +31,35 @@
         }
         
         %>
-        const id_ = '<%= request.getParameter("id") %>'
         const usuario = '<%= correo %>'
+        const id_ = '<%= request.getParameter("id") %>'
         var articulo;
+        var interval = null;
         $(document).ready(function () {
-
+            if (usuario.length>0) {
+				document.getElementById('user').innerHTML=usuario
+			}
             articulo();
             $('#precio').on('keyup change', function () {
-                if (parseFloat($('#precio').val().replace(',', '.')) > parseFloat($('#precio').attr('min').replace(',', '.'))) {
-                    $('#precio').removeClass('is-invalid')
-                    $('#pujar').removeAttr('disabled')
+                if ($('[name="timer"]').hasClass('text-secondary')) {
+                    $('#errorTiempo').removeAttr('hidden')
+                    $('#precio').val('');
                 } else {
-                    $('#pujar').attr('disabled', 'disabled')
-                    $('#precio').addClass('is-invalid')
+                    $('#errorTiempo').attr('hidden', 'hidden')
+                    if (parseFloat($('#precio').val().replace(',', '.')) > parseFloat($('#precio').attr('min').replace(',', '.'))) {
+                        $('#errorPrecio').attr('hidden', 'hidden')
+                        if (usuario.length > 0) {
+                            $('#precio').removeClass('is-invalid')
+                            $('#pujar').removeAttr('disabled')
+                            $('#errorRegistro').attr('hidden', 'hidden')
+                        } else {
+                            $('#errorRegistro').removeAttr('hidden')
+                        }
+                    } else {
+                        $('#errorPrecio').removeAttr('hidden')
+                        $('#pujar').attr('disabled', 'disabled')
+                        $('#precio').addClass('is-invalid')
+                    }
                 }
             });
             onConnectClick();
@@ -52,7 +68,7 @@
             $.get("rest/articulo/" + id_, function (data) {
                 articulo = data;
                 document.getElementById('imagen').src = data.imagen;
-                if (data.pujas.length>0) {
+                if (data.pujas.length > 0) {
                     console.log('entro');
                     data.pujas.map(p => {
                         console.log(1);
@@ -64,7 +80,7 @@
                     $('#precio').prop('min', (data.precioMinimo + '').replace('.', ','));
                     $('#precioMin').html(data.precioMinimo);
                 }
-                setInterval(() => { timer(data) }, 1000);
+                interval = setInterval(() => { timer(data) }, 1000);
             })
         }
         function tiempo(d) {
@@ -92,6 +108,9 @@
             }
             else { // ha acabado
                 contadores(d.id, { clase: 'text-danger', text: 'No disponible' })
+                console.log('he terminado');
+                clearInterval(interval);
+                $.get("rest/actualiza/");
             }
         }
         function contadores(id, attr) {
@@ -116,11 +135,26 @@
     </script>
 </head>
 
-<body class="container-fluid">
+<body>
 
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="/Subasta/Index.html">Navbar</a>
-    </nav>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+		<a class="navbar-brand" href="/Subasta/Index.jsp">Inicio</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+		  <span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+		  <ul class="navbar-nav">
+			<li class="nav-item">
+			  <a class="nav-link" href="/Subasta/login.jsp">Registrarse</a>
+			</li>
+		  </ul>
+		  <ul class="navbar-nav ml-auto">
+			<li class="nav-item">
+			  <a class="nav-link" href="/Subasta/usuario.jsp" id="user">Usuario</a>
+			</li>
+		  </ul>
+		</div>
+	  </nav>
     <div class="row m-5">
         <div class="col-md-8">
             <div class="card">
@@ -136,8 +170,14 @@
                                 <div class="col-md-8">
                                     <input type="number" name="precio" id="precio" class="form-control">
                                     <h5>La puja mínima actual es: <span id="precioMin"></span></h5>
-                                    <div class="invalid-feedback">
+                                    <div id="errorPrecio" class="text-danger" hidden>
                                         La cantidad debe ser mayor que la última puja registrada
+                                    </div>
+                                    <div id="errorRegistro" class="text-danger" hidden>
+                                        Debes estar registrado para poder pujar
+                                    </div>
+                                    <div id="errorTiempo" class="text-danger" hidden>
+                                        La puja no está disponible
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -162,6 +202,11 @@
             </div>
         </div>
     </div>
+    <footer class="py-4 bg-dark text-white-50 fixed-bottom">
+        <div class="container text-center">
+            <small>Copyright &copy; Raúl Cabrejas</small>
+        </div>
+    </footer>
 </body>
 
 </html>

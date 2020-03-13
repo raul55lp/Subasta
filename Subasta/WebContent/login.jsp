@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="javax.servlet.http.HttpSession" %>
+<%@ page import="com.subasta.Models.Usuario" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,6 +25,19 @@
         let tarjeta = false;
         let email = false;
         $(document).ready(function () {
+            <%
+            HttpSession session_ = request.getSession(true);
+        String correo = "";
+        if (null != session.getAttribute("usuario")) {
+            Usuario u = (Usuario)session_.getAttribute("usuario");
+            correo = u.getCorreo();
+        }
+        
+        %>
+        const usuario = '<%= correo %>';
+			if (usuario.length>0) {
+				document.getElementById('user').innerHTML=usuario
+			}
             $('#tarjeta').on('keyup', function () {
                 if ($('#tarjeta').val().length < 5) {
                     $('#tarjeta').addClass('is-invalid')
@@ -70,10 +87,25 @@
     </script>
 </head>
 
-<body class="container-fluid">
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="/Subasta/Index.html">Navbar</a>
-    </nav>
+<body>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+		<a class="navbar-brand" href="/Subasta/Index.jsp">Inicio</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+		  <span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+		  <ul class="navbar-nav">
+			<li class="nav-item">
+			  <a class="nav-link" href="/Subasta/login.jsp">Registrarse</a>
+			</li>
+		  </ul>
+		  <ul class="navbar-nav ml-auto">
+			<li class="nav-item">
+			  <a class="nav-link" href="/Subasta/usuario.jsp" id="user">Usuario</a>
+			</li>
+		  </ul>
+		</div>
+	  </nav>
     <form action="javascript:registrar()" method="post" class=" p-5 my-5 col-md-4 offset-4 shadow rounded border-dark">
         <h5>Registro de nuevo usuario</h5>
         <div class="form-group my-5">
@@ -91,6 +123,11 @@
             <h5 id="resultado"></h5>
         </div>
     </form>
+    <footer class="py-4 bg-dark text-white-50 fixed-bottom">
+        <div class="container text-center">
+            <small>Copyright &copy; Raúl Cabrejas</small>
+        </div>
+    </footer>
 </body>
 
 </html>

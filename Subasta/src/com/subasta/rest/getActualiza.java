@@ -2,9 +2,7 @@ package com.subasta.rest;
 
 import java.util.List;
 
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -13,17 +11,17 @@ import javax.ws.rs.core.MediaType;
 import com.google.gson.Gson;
 import com.subasta.Models.Articulo;
 import com.subasta.servicios.ServicioArticulo;
-import com.subasta.servicios.ServicioUsuario;
 
 
 
-@Path(value = "/usuario/")
-public class getUsuario {
-	@POST
+@Path(value = "/actualiza/")
+public class getActualiza {
+	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String listaArticulos(@FormParam("usuario") String email){
-		ServicioUsuario sc = new ServicioUsuario();
-		String json = new Gson().toJson(sc.getUsuario(email));
+	public String listaArticulos(){
+		ServicioArticulo sc = new ServicioArticulo();
+		
+		String json =new Gson().toJson(sc.actualiza());
 		return json;
 	}
 }

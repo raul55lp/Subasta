@@ -15,10 +15,6 @@ public class ServicioPuja {
 		Calendar c = Calendar.getInstance();
 		Articulo articulo = new ServicioArticulo().buscaArticuloPorId(id);
 		
-		System.out.println(c.getTimeInMillis());
-		System.out.println(articulo.getHoraInicio().getTimeInMillis());
-		System.out.println(articulo.getHoraFinal().getTimeInMillis());
-		
 		if (articulo.getHoraInicio().getTimeInMillis() > c.getTimeInMillis()||c.getTimeInMillis() >= articulo.getHoraFinal().getTimeInMillis()) {
 			return false;
 		}

@@ -31,11 +31,29 @@ public class ServicioArticulo {
 		for (int i = 0; i < 15; i++) {
 			Calendar c = Calendar.getInstance();
 			Calendar c1 = Calendar.getInstance();
-			c1.add(Calendar.MINUTE, 55);
+			c1.add(Calendar.SECOND, 20);
 			lista.add(new Articulo(10, c, c1, imagenes[i]));
 			c.add(Calendar.MINUTE, i*1);
 			c1.add(Calendar.MINUTE, i*2);
 		}
+	}
+	public ArrayList<Articulo> actualiza() {
+		ArrayList<Articulo> salida = new ArrayList<Articulo>();
+		long c = Calendar.getInstance().getTimeInMillis();
+		for (Articulo a : lista) {
+			if (a.getGanador()==null && c>a.getHoraFinal().getTimeInMillis()) {
+				if (a.getPujas().isEmpty()) {
+					Usuario u = new Usuario("Nadie ha pujado por este objeto",null);
+					a.setGanador(u);
+					a.setPujaFinal(a.getPrecioMinimo());
+				}else {
+					a.setPujaFinal(a.getPujas().get(0).getPrecio());
+					a.setGanador(a.getPujas().get(0).getUsuario());
+				}
+				salida.add(a);
+			}
+		}
+		return salida;
 	}
 
 	public Articulo buscaArticuloPorId(Integer id) {
